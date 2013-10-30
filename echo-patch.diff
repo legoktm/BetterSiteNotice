@@ -1,0 +1,31 @@
+From b8805864fb6c2b1dedb1845795e081e1ffa7b71b Mon Sep 17 00:00:00 2001
+From: Kunal Mehta <legoktm@gmail.com>
+Date: Wed, 30 Oct 2013 00:02:11 -0700
+Subject: [PATCH] Blegh.
+
+Change-Id: I0c3071a09a9a95ee20072522a62fdb05efc3d888
+---
+ api/ApiEchoNotifications.php | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/api/ApiEchoNotifications.php b/api/ApiEchoNotifications.php
+index a570b61..d8cc056 100644
+--- a/api/ApiEchoNotifications.php
++++ b/api/ApiEchoNotifications.php
+@@ -86,8 +86,11 @@ class ApiEchoNotifications extends ApiQueryBase {
+ 
+ 		// TODO: Make 'web' based on a new API param?
+ 		$res = $wgEchoBackend->loadNotifications( $user, $limit, $continue, 'web' );
+-
+-		foreach ( $res as $row ) {
++		$arr = array( makeEvent() );
++		foreach( $res as $row ) {
++			$arr[] = $row;
++		}
++		foreach ( $arr as $row ) {
+ 			$event = EchoEvent::newFromRow( $row );
+ 			if ( $row->notification_bundle_base && $row->notification_bundle_display_hash ) {
+ 				$event->setBundleHash( $row->notification_bundle_display_hash );
+-- 
+1.8.4
+
